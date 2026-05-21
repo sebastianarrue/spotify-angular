@@ -1,0 +1,35 @@
+<div class="w-64 bg-black h-full flex flex-col select-none">
+    <div class="p-6 pb-4">
+      <h1 class="text-3xl font-bold tracking-tight">
+        <span class="text-[var(--spotify-green)]">Spotify</span>
+      </h1>
+    </div>
+
+    <nav class="px-3 flex flex-col space-y-1 mb-6">
+      <a routerLink="/dashboard" routerLinkActive="text-white bg-white/10" class="flex items-center space-x-4 py-2 px-3 rounded-md text-[var(--spotify-lightest-gray)] hover:text-white transition-colors">
+        <svg lucideHome class="w-6 h-6"></svg>
+        <span class="font-semibold text-sm">Home</span>
+      </a>
+      <a routerLink="/playlists" routerLinkActive="text-white bg-white/10" class="flex items-center space-x-4 py-2 px-3 rounded-md text-[var(--spotify-lightest-gray)] hover:text-white transition-colors">
+        <svg lucideLibrary class="w-6 h-6"></svg>
+        <span class="font-semibold text-sm">Your Library</span>
+      </a>
+    </nav>
+
+    <div class="flex-1 px-3 overflow-y-auto">
+      <div class="bg-[var(--spotify-card-gray)] rounded-lg p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase font-bold tracking-widest text-[var(--spotify-lightest-gray)]">Playlists</span>
+          <button class="p-1 text-[var(--spotify-lightest-gray)] hover:text-white transition-colors cursor-pointer">
+            <svg lucidePlus class="w-4 h-4"></svg>
+          </button>
+        </div>
+
+        @for (playlist of playlistService.playlists() || []; track playlist.id) {
+          <a [routerLink]="['/playlists', playlist.id]" class="text-sm text-[var(--spotify-lightest-gray)] hover:text-white transition-colors truncate block py-0.5">
+            {{ playlist.name }}
+          </a>
+        }
+      </div>
+    </div>
+</div>

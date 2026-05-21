@@ -6,18 +6,7 @@ import { LucideLogOut, LucideUser } from '@lucide/angular';
   selector: 'app-topbar',
   standalone: true,
   imports: [LucideUser, LucideLogOut],
-  template: `
-<div class="h-16 bg-[var(--spotify-dark-gray)]/95 backdrop-blur-md flex items-center justify-end px-8 fixed top-0 right-0 left-64 z-10">
-  <div class="flex items-center gap-3 bg-black/60 hover:bg-[var(--spotify-hover-gray)] p-1 px-2 pl-3 rounded-full transition-colors cursor-pointer">
-    <div class="w-7 h-7 bg-[var(--spotify-light-gray)] rounded-full flex items-center justify-center">
-      <svg lucideUser class="w-3.5 h-3.5 text-white"></svg>
-    </div>
-    <span class="text-sm font-medium text-white">{{ authService.currentUser()?.email || 'Guest' }}</span>
-    <button (click)="authService.logout().subscribe(); $event.stopPropagation()" class="p-1.5 text-[var(--spotify-lightest-gray)] hover:text-white transition-colors cursor-pointer" title="Log out">
-      <svg lucideLogOut class="w-4 h-4"></svg>
-    </button>
-  </div>
-</div>`
+  templateUrl: './topbar.component.html',
 })
 export class TopbarComponent {
   authService = inject(AuthService);
