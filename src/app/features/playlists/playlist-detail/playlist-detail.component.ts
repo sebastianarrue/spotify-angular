@@ -5,6 +5,7 @@ import { Playlist } from '../../../core/models/playlist.model';
 import { Song } from '../../../core/models/song.model';
 import { LucideMusic, LucideTrash2, LucidePlay } from '@lucide/angular';
 import { environment } from '../../../../environments/environment';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-playlist-detail',
@@ -15,30 +16,35 @@ import { environment } from '../../../../environments/environment';
 export class PlaylistDetailComponent {
   private route = inject(ActivatedRoute);
   private playlistService = inject(PlaylistService);
-  
   playlist = signal<Playlist | null>(null);
   songs = signal<Song[]>([]);
   apiUrl = environment.apiUrl;
 
   ngOnInit() {
-    this.loadPlaylist();
-  }
-
-  loadPlaylist() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.playlistService.getPlaylist(id).subscribe(res => {
-        this.playlist.set(res.playlist);
-        this.songs.set(res.songs);
-      });
-    }
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        const id = params.get('id');
+        this.playlist.set(null);
+        this.songs.set([]);
+        return this.playlistService.getPlaylist(id!);
+      })
+    ).subscribe(res => {
+      this.playlist.set(res.playlist);
+      this.songs.set(res.songs);
+    });
   }
 
   removeSong(songId: string) {
     const playlistId = this.playlist()?.id;
     if (playlistId && confirm('Remove this song from playlist?')) {
       this.playlistService.removeSongFromPlaylist(playlistId, songId).subscribe(() => {
-        this.loadPlaylist();
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+          this.playlistService.getPlaylist(id).subscribe(res => {
+            this.playlist.set(res.playlist);
+            this.songs.set(res.songs);
+          });
+        }
       });
     }
   }
