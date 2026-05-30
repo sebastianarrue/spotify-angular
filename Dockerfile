@@ -12,6 +12,5 @@ RUN npm run build
 FROM nginx:alpine
 # Reemplaza 'spotify-angular' por el nombre real de la carpeta que Angular genera en /dist
 COPY --from=build /app/dist/spotify-angular/browser /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
