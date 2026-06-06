@@ -1,4 +1,5 @@
-@import "tailwindcss";
+@use 'patterns';
+@use "tailwindcss";
 
 @theme {
   --color-spotify-green: #1DB954;

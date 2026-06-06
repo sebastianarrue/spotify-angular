@@ -8,6 +8,7 @@ import { environment } from '../../../../../environments/environment';
   standalone: true,
   imports: [LucidePlay, LucidePlus, LucideTrash2],
   templateUrl: './song-card.component.html',
+  styleUrl: './song-card.component.scss',
 })
 export class SongCardComponent {
   song = input.required<Song>();

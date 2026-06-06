@@ -7,6 +7,7 @@ import { LucideLogOut, LucideUser } from '@lucide/angular';
   standalone: true,
   imports: [LucideUser, LucideLogOut],
   templateUrl: './topbar.component.html',
+  styleUrl: './topbar.component.scss',
 })
 export class TopbarComponent {
   authFacade = inject(AuthFacadeService);

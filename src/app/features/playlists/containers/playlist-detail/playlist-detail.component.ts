@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs';
   standalone: true,
   imports: [LucideMusic, LucideTrash2, LucidePlay, RouterLink],
   templateUrl: './playlist-detail.component.html',
+  styleUrl: './playlist-detail.component.scss',
 })
 export class PlaylistDetailComponent {
   private route = inject(ActivatedRoute);

@@ -2,12 +2,10 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthFacadeService } from '../../../../core/services/auth-facade.service';
-import { LucideMusic } from '@lucide/angular';
-
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, LucideMusic],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './signup.component.html',
 })
 export class SignupComponent {
