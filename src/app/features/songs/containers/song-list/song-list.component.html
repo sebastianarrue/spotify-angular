@@ -8,7 +8,7 @@
         <div class="flex-1">
           <span class="text-xs uppercase font-bold tracking-widest text-white/70">Dashboard</span>
           <h1 class="text-5xl font-bold mt-2 mb-4 leading-tight">All Songs</h1>
-          <p class="text-sm text-[var(--spotify-lightest-gray)]">{{ songService.songs()?.length || 0 }} songs</p>
+          <p class="text-sm text-[var(--spotify-lightest-gray)]">{{ songFacade.songs()?.length || 0 }} songs</p>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
     }
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5">
-      @for (song of songService.songs() || []; track song._id) {
+      @for (song of songFacade.songs() || []; track song._id) {
         <app-song-card [song]="song" (delete)="onDelete($event)" (addToPlaylist)="openAddToPlaylistModal($event)"></app-song-card>
       }
     </div>
@@ -60,7 +60,7 @@
       <div class="bg-[var(--spotify-card-gray)] p-6 rounded-xl w-full max-w-sm shadow-2xl animate-[slide-up_0.2s_ease-out]">
         <h2 class="text-lg font-bold mb-5">Add to playlist</h2>
         <div class="space-y-1 max-h-64 overflow-y-auto">
-          @for (playlist of playlistService.playlists() || []; track playlist.id) {
+          @for (playlist of playlistFacade.playlists() || []; track playlist.id) {
             <button (click)="addSongToPlaylist(playlist.id)" class="w-full text-left px-3 py-2.5 text-sm rounded text-[var(--spotify-lightest-gray)] hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
               {{ playlist.name }}
             </button>

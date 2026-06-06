@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthFacadeService } from '../../../../core/services/auth-facade.service';
 import { LucideMusic } from '@lucide/angular';
 
 @Component({
@@ -12,7 +12,7 @@ import { LucideMusic } from '@lucide/angular';
 })
 export class SignupComponent {
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private authFacade = inject(AuthFacadeService);
   private router = inject(Router);
 
   signupForm = this.fb.group({
@@ -23,7 +23,7 @@ export class SignupComponent {
   onSubmit() {
     if (this.signupForm.valid) {
       const { email, password } = this.signupForm.value;
-      this.authService.signup(email!, password!).subscribe({
+      this.authFacade.signup(email!, password!).subscribe({
         next: () => {
           alert('Account created! Please log in.');
           this.router.navigate(['/login']);

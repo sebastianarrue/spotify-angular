@@ -23,7 +23,7 @@
   }
 
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5">
-    @for (playlist of playlistService.playlists() || []; track playlist.id) {
+    @for (playlist of playlistFacade.playlists() || []; track playlist.id) {
       <a [routerLink]="['/playlists', playlist.id]" class="bg-[var(--spotify-card-gray)] p-4 rounded-md hover:bg-[var(--spotify-hover-gray)] transition-colors group cursor-pointer block">
         <div class="w-full aspect-square bg-linear-to-br from-gray-700 to-gray-900 rounded-md flex items-center justify-center mb-4 shadow-lg">
           <svg lucideMusic class="w-14 h-14 text-[var(--spotify-lightest-gray)] opacity-60"></svg>

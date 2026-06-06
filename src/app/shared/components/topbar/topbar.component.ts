@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthFacadeService } from '../../../core/services/auth-facade.service';
 import { LucideLogOut, LucideUser } from '@lucide/angular';
 
 @Component({
@@ -9,5 +9,5 @@ import { LucideLogOut, LucideUser } from '@lucide/angular';
   templateUrl: './topbar.component.html',
 })
 export class TopbarComponent {
-  authService = inject(AuthService);
+  authFacade = inject(AuthFacadeService);
 }

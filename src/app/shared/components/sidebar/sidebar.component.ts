@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideHome, LucideLibrary, LucidePlus, LucideX } from '@lucide/angular';
-import { PlaylistService } from '../../../core/services/playlist.service';
+import { PlaylistFacadeService } from '../../../core/services/playlist.facade.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +11,7 @@ import { PlaylistService } from '../../../core/services/playlist.service';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
-  playlistService = inject(PlaylistService);
+  playlistFacade = inject(PlaylistFacadeService);
   private fb = inject(FormBuilder);
 
   showCreateForm = signal(false);
@@ -22,13 +22,13 @@ export class SidebarComponent {
   });
 
   ngOnInit() {
-    this.playlistService.getPlaylists().subscribe();
+    this.playlistFacade.getPlaylists().subscribe();
   }
 
   onCreate() {
     if (this.playlistForm.valid) {
       const { name, description } = this.playlistForm.value;
-      this.playlistService.createPlaylist(name!, description || '').subscribe(() => {
+      this.playlistFacade.createPlaylist(name!, description || '').subscribe(() => {
         this.showCreateForm.set(false);
         this.playlistForm.reset();
       });

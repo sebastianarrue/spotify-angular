@@ -37,7 +37,7 @@
           </form>
         }
 
-        @for (playlist of playlistService.playlists() || []; track playlist.id) {
+        @for (playlist of playlistFacade.playlists() || []; track playlist.id) {
           <a [routerLink]="['/playlists', playlist.id]" class="text-sm text-[var(--spotify-lightest-gray)] hover:text-white transition-colors truncate block py-0.5">
             {{ playlist.name }}
           </a>

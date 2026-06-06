@@ -1,12 +1,12 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthFacadeService } from '../services/auth-facade.service';
 
 export const authGuard = () => {
-  const authService = inject(AuthService);
+  const authFacade = inject(AuthFacadeService);
   const router = inject(Router);
 
-  if (authService.currentUser()) {
+  if (authFacade.currentUser()) {
     return true;
   }
 

@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import { SongService } from '../../../core/services/song.service';
-import { PlaylistService } from '../../../core/services/playlist.service';
-import { SongCardComponent } from '../song-card/song-card.component';
+import { SongFacadeService } from '../../services/song.facade.service';
+import { PlaylistFacadeService } from '../../../../core/services/playlist.facade.service';
+import { SongCardComponent } from '../../components/song-card/song-card.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Song } from '../../../core/models/song.model';
+import { Song } from '../../../../core/models/song.model';
 import { LucideMusic } from '@lucide/angular';
 
 @Component({
@@ -13,8 +13,8 @@ import { LucideMusic } from '@lucide/angular';
   templateUrl: './song-list.component.html',
 })
 export class SongListComponent {
-  songService = inject(SongService);
-  playlistService = inject(PlaylistService);
+  songFacade = inject(SongFacadeService);
+  playlistFacade = inject(PlaylistFacadeService);
   private fb = inject(FormBuilder);
   
   showCreateForm = signal(false);
@@ -28,8 +28,8 @@ export class SongListComponent {
   });
 
   ngOnInit() {
-    this.songService.getSongs().subscribe();
-    this.playlistService.getPlaylists().subscribe();
+    this.songFacade.getSongs().subscribe();
+    this.playlistFacade.getPlaylists().subscribe();
   }
 
   onFileSelected(event: any) {
@@ -44,7 +44,7 @@ export class SongListComponent {
       formData.append('album', this.songForm.value.album!);
       formData.append('image', this.selectedFile);
 
-      this.songService.createSong(formData).subscribe(() => {
+      this.songFacade.createSong(formData).subscribe(() => {
         this.showCreateForm.set(false);
         this.songForm.reset();
         this.selectedFile = null;
@@ -54,7 +54,7 @@ export class SongListComponent {
 
   onDelete(id: string) {
     if (confirm('Are you sure?')) {
-      this.songService.deleteSong(id).subscribe();
+      this.songFacade.deleteSong(id).subscribe();
     }
   }
 
@@ -65,7 +65,7 @@ export class SongListComponent {
   addSongToPlaylist(playlistId: number) {
     const song = this.selectedSong();
     if (song) {
-      this.playlistService.addSongToPlaylist(playlistId, song._id).subscribe(() => {
+      this.playlistFacade.addSongToPlaylist(playlistId, song._id).subscribe(() => {
         this.selectedSong.set(null);
         alert('Song added!');
       });

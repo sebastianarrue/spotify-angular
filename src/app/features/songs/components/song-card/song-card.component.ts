@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
-import { Song } from '../../../core/models/song.model';
+import { Song } from '../../../../core/models/song.model';
 import { LucidePlay, LucidePlus, LucideTrash2 } from '@lucide/angular';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-song-card',

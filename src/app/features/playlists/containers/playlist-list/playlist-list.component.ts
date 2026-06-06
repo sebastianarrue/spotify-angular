@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { PlaylistService } from '../../../core/services/playlist.service';
+import { PlaylistFacadeService } from '../../../../core/services/playlist.facade.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideTrash2, LucideMusic } from '@lucide/angular';
 import { RouterLink } from '@angular/router';
@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './playlist-list.component.html',
 })
 export class PlaylistListComponent {
-  playlistService = inject(PlaylistService);
+  playlistFacade = inject(PlaylistFacadeService);
   private fb = inject(FormBuilder);
   
   showCreateForm = signal(false);
@@ -22,13 +22,13 @@ export class PlaylistListComponent {
   });
 
   ngOnInit() {
-    this.playlistService.getPlaylists().subscribe();
+    this.playlistFacade.getPlaylists().subscribe();
   }
 
   onSubmit() {
     if (this.playlistForm.valid) {
       const { name, description } = this.playlistForm.value;
-      this.playlistService.createPlaylist(name!, description || '').subscribe(() => {
+      this.playlistFacade.createPlaylist(name!, description || '').subscribe(() => {
         this.showCreateForm.set(false);
         this.playlistForm.reset();
       });
@@ -37,7 +37,7 @@ export class PlaylistListComponent {
 
   onDelete(id: number) {
     if (confirm('Delete this playlist?')) {
-      this.playlistService.deletePlaylist(id).subscribe();
+      this.playlistFacade.deletePlaylist(id).subscribe();
     }
   }
 }
