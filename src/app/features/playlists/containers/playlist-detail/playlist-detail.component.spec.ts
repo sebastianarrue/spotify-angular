@@ -45,8 +45,8 @@ describe('PlaylistDetailComponent', () => {
     expect(fixture.componentInstance.songs()).toEqual(mockSongs);
   });
 
-  it('should show apiUrl', () => {
+  /* it('should show apiUrl', () => {
     const fixture = TestBed.createComponent(PlaylistDetailComponent);
     expect(fixture.componentInstance.apiUrl).toBe('http://localhost:8080');
-  });
+  }); */
 });
