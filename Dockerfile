@@ -6,7 +6,8 @@ RUN npm install
 COPY . .
 # Asegúrate de que el script de build de tu package.json genere la carpeta dist
 # RUN npm run build --configuration=production
-RUN npm run build
+ARG BUILD_CONFIGURATION=production
+RUN npx ng build --configuration=$BUILD_CONFIGURATION
 
 # --- Etapa 2: Producción con Nginx ---
 FROM nginx:alpine
